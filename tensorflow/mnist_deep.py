@@ -33,7 +33,7 @@ def max_pool(x):
 
 # 畳み込み層1
 with tf.name_scope('conv1') as scope:
-    # 重みを5*5で作成、チャネルは1、 出力データは32個
+    # 重みを5*5で作成、チャネルは1、 出力データは32個のチャネルにする
     W_conv1 = weight_variable('conv1', [5, 5, 1, 32])
     b_conv1 = bias_variable('conv1', 32)
     # 28 * 28で1チャネルに変形(-1にしておくとよしなにしてくれる)
