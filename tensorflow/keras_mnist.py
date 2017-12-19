@@ -1,3 +1,5 @@
+# 全結合verをkerasで実装
+
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
@@ -8,10 +10,8 @@ from keras.utils import np_utils
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
 
 # データをfloat型にして正規化する
-X_train = X_train.reshape(60000, 784).astype('float32')
-X_test  = X_test.reshape(10000, 784).astype('float')
-X_train /= 255
-X_test  /= 255
+X_train = X_train.reshape(60000, 784).astype('float32') / 255
+X_test  = X_test.reshape(10000, 784).astype('float') / 255
 
 # ラベルをone_hot形式に変換
 y_train = np_utils.to_categorical(y_train, 10)
@@ -29,6 +29,16 @@ model.add(Dropout(0.2))
 
 model.add(Dense(10))
 model.add(Activation('softmax'))
+
+# Function APIの書き方だとこう
+# inputs = Input(shape=(784,))
+#
+# nw = Dense(512, activation='relu')(inputs)
+# nw = Dropout(.2)(nw)
+# nw = Dense(512, activation='relu')(nw)
+# nw = Dropout(.2)(nw)
+# predictions = Dense(10, activation='softmax')(nw)
+
 
 # モデルの構築
 model.compile(

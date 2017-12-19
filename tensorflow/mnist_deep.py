@@ -46,7 +46,7 @@ with tf.name_scope('pool1') as scope:
 
 # 畳み込み層2
 with tf.name_scope('conv2') as scope:
-    # 重みを5*5で作成、チャネルは32、 出力データは32個
+    # 重みを5*5で作成、チャネルは32、 出力データは64個
     W_conv2 = weight_variable('conv2', [5, 5, 32, 64])
     b_conv2 = bias_variable('conv2', 64)
     h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
