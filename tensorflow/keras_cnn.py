@@ -1,10 +1,10 @@
-from keras.models import Sequential
-from keras.datasets import mnist
+from keras.models               import Sequential
+from keras.datasets             import mnist
 from keras.layers.convolutional import Conv2D
-from keras.layers.pooling import MaxPooling2D
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.optimizers import Adam
-from keras.utils import np_utils
+from keras.layers.pooling       import MaxPooling2D
+from keras.layers.core          import Dense, Dropout, Activation, Flatten
+from keras.optimizers           import Adam
+from keras.utils                import np_utils
 
 from keras import backend as K
 
@@ -23,11 +23,11 @@ img_cols = 28
 if K.image_data_format() == 'channels_first':
     X_train     = X_train.reshape(-1, 1, img_rows, img_cols)
     X_test      = X_test.reshape(-1, 1, img_rows, img_cols)
-    input_shape = (3, img_rows, img_cols)
+    input_shape = (1, img_rows, img_cols)
 else:
     X_train     = X_train.reshape(-1, img_rows, img_cols, 1)
     X_test      = X_test.reshape(-1, img_rows, img_cols, 1)
-    input_shape = (img_rows, img_cols, 3)
+    input_shape = (img_rows, img_cols, 1)
 
 # ラベルはone-hot encodingを施す
 y_train = y_train.astype('int32')
@@ -47,7 +47,7 @@ model = Sequential()
 # フィルタは5×5ピクセルで28個→出力データは32チャネル
 # 入力データは28×28ピクセルの1チャンネル
 # input_shapeを指定するのは1層目だけ
-model.add(Conv2D(32, (5, 5), input_shape=(28, 28, 1)))
+model.add(Conv2D(32, (5, 5), input_shape=input_shape))
 model.add(Activation('relu'))
 # プーリング層1
 model.add(MaxPooling2D(pool_size=(2, 2)))
